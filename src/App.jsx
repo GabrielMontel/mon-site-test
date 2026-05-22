@@ -29,26 +29,6 @@ function App() {
         </button>
       </section>
 
-      {/* Section Liste de test */}
-      <section style={styles.section}>
-        <h2>Suivi des Projets</h2>
-        <div style={styles.grid}>
-          {projets.map((projet) => (
-            <div key={projet.id} style={styles.card}>
-              <h3 style={styles.cardTitle}>{projet.name}</h3>
-              <p style={styles.cardTech}>Tech : {projet.tech}</p>
-              <span style={{
-                ...styles.badge, 
-                backgroundColor: projet.status === "En ligne" ? "#00ff6622" : "#ffffff11",
-                color: projet.status === "En ligne" ? "#00ff66" : "#aaa"
-              }}>
-                {projet.status}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Footer */}
       <footer style={styles.footer}>
         <p>© 2026 — Mode Test React v18</p>
