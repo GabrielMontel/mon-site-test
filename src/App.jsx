@@ -1,122 +1,144 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [likes, setLikes] = useState(0)
+
+  // Fausses données pour tester l'affichage dynamique
+  const projets = [
+    { id: 1, name: "Site Portfolio", status: "En cours", tech: "React / Vite" },
+    { id: 2, name: "Application Web", status: "Terminé", tech: "JavaScript" },
+    { id: 3, name: "Test Déploiement Vercel", status: "En ligne", tech: "React" }
+  ]
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <div style={styles.container}>
+      {/* Header */}
+      <header style={styles.header}>
+        <h1 style={styles.title}>LAB / TEST LAB</h1>
+        <p style={styles.subtitle}>Statut du serveur : <span style={styles.badgeOnline}>En ligne</span></p>
+      </header>
+
+      <hr style={styles.divider} />
+
+      {/* Section Compteur Interactif */}
+      <section style={styles.section}>
+        <h2>Section Interactive</h2>
+        <p>Clique sur le bouton pour tester l'état (State) de React :</p>
+        <button style={styles.button} onClick={() => setLikes(likes + 1)}>
+          ✨ Expérience + {likes}
         </button>
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+      {/* Section Liste de test */}
+      <section style={styles.section}>
+        <h2>Suivi des Projets</h2>
+        <div style={styles.grid}>
+          {projets.map((projet) => (
+            <div key={projet.id} style={styles.card}>
+              <h3 style={styles.cardTitle}>{projet.name}</h3>
+              <p style={styles.cardTech}>Tech : {projet.tech}</p>
+              <span style={{
+                ...styles.badge, 
+                backgroundColor: projet.status === "En ligne" ? "#00ff6622" : "#ffffff11",
+                color: projet.status === "En ligne" ? "#00ff66" : "#aaa"
+              }}>
+                {projet.status}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p>© 2026 — Mode Test React v18</p>
+      </footer>
+    </div>
   )
+}
+
+// Styles en ligne (CSS-in-JS) pour éviter d'avoir à toucher au fichier CSS pour l'instant
+const styles = {
+  container: {
+    backgroundColor: '#0a0a0a',
+    color: '#ffffff',
+    minHeight: '100vh',
+    fontFamily: 'system-ui, sans-serif',
+    padding: '40px 20px',
+    maxWidth: '800px',
+    margin: '0 auto',
+    boxSizing: 'border-box',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '20px',
+  },
+  title: {
+    fontSize: '2.5rem',
+    fontWeight: '800',
+    letterSpacing: '2px',
+    margin: '0 0 10px 0',
+  },
+  subtitle: {
+    color: '#888',
+    fontSize: '1rem',
+  },
+  badgeOnline: {
+    color: '#00ff66',
+    fontWeight: 'bold',
+  },
+  divider: {
+    borderColor: '#222',
+    margin: '30px 0',
+  },
+  section: {
+    marginBottom: '40px',
+  },
+  button: {
+    backgroundColor: '#ffffff',
+    color: '#000000',
+    border: 'none',
+    padding: '12px 24px',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    borderRadius: '4px',
+    transition: 'transform 0.1s ease',
+    marginTop: '10px',
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gap: '20px',
+    marginTop: '15px',
+  },
+  card: {
+    backgroundColor: '#141414',
+    border: '1px solid #222',
+    borderRadius: '6px',
+    padding: '20px',
+  },
+  cardTitle: {
+    margin: '0 0 10px 0',
+    fontSize: '1.2rem',
+  },
+  cardTech: {
+    color: '#666',
+    fontSize: '0.9rem',
+    margin: '0 0 15px 0',
+  },
+  badge: {
+    fontSize: '0.8rem',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontWeight: '500',
+  },
+  footer: {
+    textAlign: 'center',
+    marginTop: '60px',
+    color: '#444',
+    fontSize: '0.85rem',
+  }
 }
 
 export default App
